@@ -1,0 +1,398 @@
+{
+  "id": "restored-catvton-one-click-vton-m2max",
+  "revision": 0,
+  "last_node_id": 8,
+  "last_link_id": 7,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "LoadImage",
+      "pos": [
+        40,
+        80
+      ],
+      "size": [
+        315,
+        314
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "slot_index": 0,
+          "links": [
+            1,
+            3
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.24.0",
+        "Node name for S&R": "A - 人物全身照"
+      },
+      "widgets_values": [
+        "person.jpg",
+        "image"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "LoadImage",
+      "pos": [
+        40,
+        450
+      ],
+      "size": [
+        315,
+        314
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "slot_index": 0,
+          "links": [
+            2
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.24.0",
+        "Node name for S&R": "B - 服装参考图"
+      },
+      "widgets_values": [
+        "clothing.jpg",
+        "image"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "LayerMask: HumanPartsUltra",
+      "pos": [
+        430,
+        300
+      ],
+      "size": [
+        352,
+        534
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 3
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "slot_index": 1,
+          "links": [
+            4,
+            5
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui_layerstyle",
+        "ver": "1.0.90",
+        "Node name for S&R": "自动生成服装遮罩 - 默认上装"
+      },
+      "widgets_values": [
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        "PyMatting",
+        8,
+        6,
+        0.01,
+        0.99,
+        false,
+        "cpu",
+        2
+      ]
+    },
+    {
+      "id": 4,
+      "type": "CatVTONWrapper",
+      "pos": [
+        850,
+        90
+      ],
+      "size": [
+        350,
+        280
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 1
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 4
+        },
+        {
+          "name": "refer_image",
+          "type": "IMAGE",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "slot_index": 0,
+          "links": [
+            6,
+            7
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI_CatVTON_Wrapper",
+        "ver": "e2ae9b62c53a7c2e009f2448975c6909c83f73b5",
+        "Node name for S&R": "CatVTON 一键换装"
+      },
+      "widgets_values": [
+        25,
+        "fp32",
+        42,
+        "fixed",
+        20,
+        2.5,
+        "quality_768x1024",
+        "cpu"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "PreviewImage",
+      "pos": [
+        1280,
+        90
+      ],
+      "size": [
+        520,
+        460
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 6
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.24.0",
+        "Node name for S&R": "预览换装结果"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 6,
+      "type": "LayerMask: MaskPreview",
+      "pos": [
+        850,
+        500
+      ],
+      "size": [
+        323,
+        354
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 5
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfyui_layerstyle",
+        "ver": "1.0.90",
+        "Node name for S&R": "预览服装遮罩"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 7,
+      "type": "SaveImage",
+      "pos": [
+        1280,
+        590
+      ],
+      "size": [
+        315,
+        58
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 7
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.24.0",
+        "Node name for S&R": "保存一张换装结果"
+      },
+      "widgets_values": [
+        "vton_one_click"
+      ]
+    },
+    {
+      "id": 8,
+      "type": "Note",
+      "pos": [
+        40,
+        -80
+      ],
+      "size": [
+        1130,
+        130
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {},
+      "widgets_values": [
+        "Mac Studio M2 Max 32GB RAM 一键换装工作流。\n输入 A: input/person.jpg 人物全身照。输入 B: input/clothing.jpg 服装参考图。输出保存为 output/vton_one_click_*.png。\n使用本地 CatVTON 模型: models/CatVTON；人体服装分割模型: models/onnx/human-parts/deeplabv3p-resnet50-human.onnx。\n默认只替换 top_clothes 上装。连衣裙或整套衣服可在 HumanPartsUltra 节点开启 bottom_clothes。\nHumanPartsUltra 已关闭 process_detail，避免当前环境缺少 cv2.ximgproc.guidedFilter 时报错；CatVTON 节点会继续做 mask_grow 和模糊处理。\n稳定默认: quality_768x1024, cpu, fp32, steps 20, cfg 2.5。该配置已验证能正确生成黑色 T 恤和图案。\n不要把 cfg 降到 1.0：这会关闭 CatVTON 的有效条件引导，导致服装区域灰化。当前 MPS/fp16 测试会生成全黑图，节点已自动回退到 CPU/fp32。"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      0,
+      4,
+      0,
+      "IMAGE"
+    ],
+    [
+      2,
+      2,
+      0,
+      4,
+      2,
+      "IMAGE"
+    ],
+    [
+      3,
+      1,
+      0,
+      3,
+      0,
+      "IMAGE"
+    ],
+    [
+      4,
+      3,
+      1,
+      4,
+      1,
+      "MASK"
+    ],
+    [
+      5,
+      3,
+      1,
+      6,
+      0,
+      "MASK"
+    ],
+    [
+      6,
+      4,
+      0,
+      5,
+      0,
+      "IMAGE"
+    ],
+    [
+      7,
+      4,
+      0,
+      7,
+      0,
+      "IMAGE"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 1.2274702798996,
+      "offset": [
+        117.88610442255676,
+        188.8305954666759
+      ]
+    },
+    "frontendVersion": "1.45.15"
+  },
+  "version": 0.4,
+  "seed_widgets": {
+    "4": 2
+  }
+}
